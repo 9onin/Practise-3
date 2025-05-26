@@ -1,0 +1,12 @@
+public sealed class Person
+{
+    public string Name { get; set; }
+    public int Age { get; set; }
+}
+
+// Ошибка компиляции: нельзя унаследовать от sealed-класса
+public class Employee : Person // ❌ ОШИБКА: "Cannot derive from sealed type 'Person'"
+{
+    public string Company { get; set; }
+}
+sealed class — полностью запрещает наследование.
