@@ -1,0 +1,31 @@
+При создании объекта `Employee` следующим образом:
+```csharp
+Employee tom = new Employee("Tom", "Microsoft");
+```
+
+Конструкторы будут выполняться в следующем порядке:
+
+1. **Конструктор `Employee(string name, string company)`**  
+   Это основной конструктор, который мы вызываем напрямую.
+
+2. **Конструктор `Person(string name)`**  
+   Поскольку в `Employee` используется `base(name)`, вызывается конструктор родительского класса `Person` с одним аргументом `name`.
+
+3. **Конструктор `Person(string name, int age)`**  
+   Конструктор `Person(string name)` вызывает `this(name, 18)`, что приводит к выполнению конструктора с двумя параметрами.
+
+4. **Завершение выполнения конструктора `Employee(string name, string company)`**  
+   После завершения цепочки конструкторов `Person` управление возвращается в конструктор `Employee`, где инициализируется поле `company`.
+
+### Итоговый порядок вызовов:
+1. `Employee(string name, string company)`  
+   ↓ (через `base(name)`)  
+2. `Person(string name)`  
+   ↓ (через `this(name, 18)`)  
+3. `Person(string name, int age)`  
+   ↑ (возврат по цепочке)  
+4. Завершение `Employee(string name, string company)` (установка `this.company = company`).  
+
+Таким образом, поля инициализируются в таком порядке:  
+- `Person.name` и `Person.age` (через конструкторы `Person`),  
+- затем `Employee.company` (в последнюю очередь).
